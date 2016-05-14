@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello Jquery!</title>
+    <script src="jquery-2.0.0.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var vNombre=$('#nombre');
+            var vSaludo=$('#saludo');
+            vNombre.keyup(function () {
+                vSaludo.text('Hola '+vNombre.val()+' !!!')
+            })
+        })
+    </script>
+</head>
+<body>
+<input id="nombre" type="text">
+<h2 id="saludo"></h2>
+</body>
+</html>
