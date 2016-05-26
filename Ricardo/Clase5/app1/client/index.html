@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>app</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <style>
+        html            {overflow-y: scroll}
+        body            {padding-top: 50px}
+        #todo-list      {margin-bottom: 30px}
+        #todo-form      {margin-bottom: 50px}
+    </style>
+    <script src="js/lib/angular.min.js"></script>
+    <script src="js/controllers/main.js"></script>
+    <script src="js/services/tareas.js"></script>
+    <script src="js/core.js"></script>
+</head>
+<body ng-controller="mainController">
+
+<div class="container">
+    <!--Cabecera-->
+    <div class="jumbotron text-center">
+        <h1>Tareas <span class="label label-info" >{{tareas.length}}</span></h1>
+    </div>
+    <!--Listado de Tareas-->
+    <div id="todo-list" class="row">
+        <div class="col-sm-4 col-sm-offset-4">
+            <div class="checkbox" ng-repeat="tarea in tareas">
+                <label>
+                    <input type="checkbox" ng-click="eliminar(tarea._id)" >
+                    {{tarea.texto}}
+                </label>
+            </div>
+            <p class="text-center" ng-show="loading">
+                <span class="fa fa-spinner fa-spin fa-3x"></span>
+            </p>
+        </div>
+    </div>
+    <!--Form de Tareas-->
+    <div id="todo-form" class="row">
+        <div class="col-sm-8 col-sm-offset-2 text-center">
+            <form>
+                <div class="form-group">
+                   <input type="text" class="form-control input-lg text-center"
+                   placeholder="Ingrese una tarea" ng-model="form.texto">
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg"
+                ng-click="agregar()">Agregar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
