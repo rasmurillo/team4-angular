@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app2">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="angular.min.js"></script>
+    <script src="ejemplo2.js"></script>
+</head>
+<body>
+    <div ng-controller="main">
+        Usuarios
+        <select ng-model="elegido" ng-options="usuario as usuario.nombre for usuario in usuarios">
+        <option value="">--Seleccione un usuario--</option>
+        </select>
+        <p>
+            El usuario elegido es: {{elegido.nombre | uppercase}}
+        </p>
+        <p>
+            El usuario elegido es: {{elegido.nombre | lowercase}}
+        </p>
+
+        <p>
+            El numero es: {{numero | number:2}}<br>
+            El presio es: {{precio | currency}}<br>
+            La fecha es: {{fecha | date:'dd/MM/yyyy'}}<br>
+            La fecha es: {{fecha | date:'short'}}<br>
+            La fecha es: {{fecha | date:'shortDate'}}
+        </p>
+        <p>
+            El usuario elegido es: {{usuarios | json}}
+        </p>
+    </div>
+</body>
+</html>
