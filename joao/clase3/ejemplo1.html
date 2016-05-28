@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="angular.min.js"></script>
+    <script src="ejemplo1.js"></script>
+</head>
+<body ng-controller="calculo">
+    introduzca un número <input ng-model="numero">
+    <button ng-click="CalcularCuadrado()">x2</button>
+    <button ng-click="CalcularCubo()">x3</button>
+    <button ng-click="PerimetroCircunferencia()">perimetro 2rphi</button>
+    <button ng-click="SumarFactory()">sumar factory</button>
+
+    <div >
+        resultado: {{resultado}}
+    </div>
+</body>
+</html>
