@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>app</title>
+
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <style>
+        html{ overflow-y: scroll}
+        body{padding-top: 50px}
+        #todo-list {margin-bottom: 30px}
+        #todo-form {margin-bottom: 50px}
+    </style>
+    <script src="js/lib/angular.min.js"></script>
+    <script src="js/controllers/main.js"></script>
+    <script src="js/services/tareas.js"></script>
+    <script src="js/core.js"></script>
+</head>
+<body ng-controller="mainController">
+    <div class="container">
+        <!--Cabecera-->
+        <div class="jumbotron text-center">
+            <h2>Puntos de Distribución <span class="label label-info">{{tareas.length}}</span></h2>
+        </div>
+        <!--Listado de tareas-->
+        <div id="todoList" class="row">
+            <div class="col-sm-4 col-sm-offset-4">
+                <table class="table ">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Direccion</th>
+                        <th>Acciones</th>
+                    </tr>
+                    <tr ng-repeat="tarea in tareas">
+                        <td>{{tarea.nombre}}</td>
+                        <td>{{tarea.direccion}}</td>
+                        <td>
+                            <button class="btn btn-danger" ng-click="eliminar(tarea._id)"><span class="glyphicon glyphicon-remove"></span> Eliminar</button>
+                        </td>
+                    </tr>
+                </table>
+                <!--div class="checkbox" ng-repeat="tarea in tareas">
+                    <label >
+                        <input type="checkbox" ng-click="eliminar(tarea._id)">{{tarea.nombre}} {{tarea._id}}
+                    </label>
+                </div-->
+                <p class="text-center" ng-show="loading">
+                    <span class="fa fa-spinner fa-spin fa-3x"></span>
+                </p>
+
+            </div>
+        </div>
+
+        <!--form tareas-->
+        <div id="todo-form" class="row">
+            <div class="col-sm-10 col-sm-offset-2  text-center">
+                <!--form>
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg text-center" placeholder="Nombre punto de distribucion" ng-model="form.nombre">
+                        <input type="text" class="form-control input-lg text-center" placeholder="Direccion del punto de distribucion" ng-model="form.direccion">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg" ng-click="agregar()">Agregar</button>
+                </form-->
+
+                <form class="form-horizontal" name="frmDistribucion" id="frmDistribucion">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="idSolicitud">Nombre</label>
+                        <div class="col-sm-6">
+                            <input class="form-control" id="nombre" name="nombre" type="text" ng-model="form.nombre"  placeholder="Nombre punto de distribucion"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="nombreSistema">Direccion</label>
+                        <div class="col-sm-6">
+                            <input class="form-control" id="direccion" name="direccion" type="text" ng-model="form.direccion" placeholder="Direccion del punto de distribucion" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="nombreSistema"></label>
+                        <div class="col-sm-6">
+                            <button type="submit" class="btn btn-primary btn-lg" ng-click="agregar()">Agregar</button>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
