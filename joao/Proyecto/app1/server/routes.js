@@ -48,6 +48,27 @@ module.exports = function (app) {
         });
     });
 
+
+    app.post('/api/todosEdit',function (req, res) {
+        //console.log(req);
+        Tarea.update(
+            {_id :req.body.id },
+            {$set: {
+                nombre: req.body.nombre,
+                direccion: req.body.direccion,
+
+                done: false
+                }
+            },function (err,todo) {
+                if(err)
+                {
+                    res.send(err);
+                }
+                getTareas(res);
+            }
+        );
+    });
+
     app.get('*',function (req,res) {
         res.sendFile(__dirname + '/client/index.html'); //por defecto se envia a este archivo
         //res.sendFile(__dirname.replace('\server','') + '/client/index.html'); //por defecto se envia a este archivo

@@ -30,5 +30,24 @@ angular.module('appController',[])
                     $scope.loading = false;
                     $scope.tareas = data;
                 });
-        }
+        };
+        $scope.cargarEdit = function (data) {
+            $scope.form2 = {
+                id : data._id,
+                nombre : data.nombre,
+                direccion : data.direccion
+            }
+        };
+        
+        $scope.actualizar = function () {
+            if($scope.form2.nombre != undefined){
+                $scope.loading =true;
+                FacTareas.editar($scope.form2)
+                    .success(function (data) {
+                        $scope.loading = false;
+                        $scope.form2={};
+                        $scope.tareas = data;
+                    });
+            }
+        };
     });

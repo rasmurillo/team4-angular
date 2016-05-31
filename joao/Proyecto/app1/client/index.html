@@ -11,6 +11,8 @@
         #todo-list {margin-bottom: 30px}
         #todo-form {margin-bottom: 50px}
     </style>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
     <script src="js/lib/angular.min.js"></script>
     <script src="js/controllers/main.js"></script>
     <script src="js/services/tareas.js"></script>
@@ -36,6 +38,7 @@
                         <td>{{tarea.direccion}}</td>
                         <td>
                             <button class="btn btn-danger" ng-click="eliminar(tarea._id)"><span class="glyphicon glyphicon-remove"></span> Eliminar</button>
+                            <button class="btn btn-primary" ng-click="cargarEdit(tarea)" data-toggle="modal" data-target="#divDistribucionEdit"><span class="glyphicon glyphicon-remove"></span> Edit</button>
                         </td>
                     </tr>
                 </table>
@@ -47,47 +50,131 @@
                 <p class="text-center" ng-show="loading">
                     <span class="fa fa-spinner fa-spin fa-3x"></span>
                 </p>
-
+                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#divDistribucion">Open Modal</button>
             </div>
         </div>
 
-        <!--form tareas-->
-        <div id="todo-form" class="row">
-            <div class="col-sm-10 col-sm-offset-2  text-center">
-                <!--form>
-                    <div class="form-group">
-                        <input type="text" class="form-control input-lg text-center" placeholder="Nombre punto de distribucion" ng-model="form.nombre">
-                        <input type="text" class="form-control input-lg text-center" placeholder="Direccion del punto de distribucion" ng-model="form.direccion">
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-lg" ng-click="agregar()">Agregar</button>
-                </form-->
 
-                <form class="form-horizontal" name="frmDistribucion" id="frmDistribucion">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="idSolicitud">Nombre</label>
-                        <div class="col-sm-6">
-                            <input class="form-control" id="nombre" name="nombre" type="text" ng-model="form.nombre"  placeholder="Nombre punto de distribucion"/>
+    </div>
+
+    <!-- Modal -->
+    <div id="divDistribucion" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Adicionar Distribuidora</h4>
+                </div>
+                <div class="modal-body">
+                    <!--form tareas-->
+                    <div id="todo-form" class="row">
+                        <div class="col-sm-10 col-sm-offset-2  text-center">
+                            <!--form>
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-lg text-center" placeholder="Nombre punto de distribucion" ng-model="form.nombre">
+                                    <input type="text" class="form-control input-lg text-center" placeholder="Direccion del punto de distribucion" ng-model="form.direccion">
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-lg" ng-click="agregar()">Agregar</button>
+                            </form-->
+
+                            <form class="form-horizontal" name="frmDistribucion" id="frmDistribucion">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="idSolicitud">Nombre</label>
+                                    <div class="col-sm-6">
+                                        <input class="form-control" id="nombre" name="nombre" type="text" ng-model="form.nombre"  placeholder="Nombre punto de distribucion"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="nombreSistema">Direccion</label>
+                                    <div class="col-sm-6">
+                                        <input class="form-control" id="direccion" name="direccion" type="text" ng-model="form.direccion" placeholder="Direccion del punto de distribucion" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="nombreSistema"></label>
+                                    <div class="col-sm-6">
+                                        <button type="submit" class="btn btn-primary btn-lg" ng-click="agregar()" data-dismiss="modal">Agregar</button>
+                                    </div>
+                                </div>
+
+
+                            </form>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="nombreSistema">Direccion</label>
-                        <div class="col-sm-6">
-                            <input class="form-control" id="direccion" name="direccion" type="text" ng-model="form.direccion" placeholder="Direccion del punto de distribucion" />
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="nombreSistema"></label>
-                        <div class="col-sm-6">
-                            <button type="submit" class="btn btn-primary btn-lg" ng-click="agregar()">Agregar</button>
-                        </div>
-                    </div>
-
-
-                </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
             </div>
+
         </div>
     </div>
+    <!-- Modal -->
+    <div id="divDistribucionEdit" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Actualizar Distribuidora</h4>
+                </div>
+                <div class="modal-body">
+                    <!--form tareas-->
+                    <div id="todo-form" class="row">
+                        <div class="col-sm-10 col-sm-offset-2  text-center">
+                            <!--form>
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-lg text-center" placeholder="Nombre punto de distribucion" ng-model="form.nombre">
+                                    <input type="text" class="form-control input-lg text-center" placeholder="Direccion del punto de distribucion" ng-model="form.direccion">
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-lg" ng-click="agregar()">Agregar</button>
+                            </form-->
+
+                            <form class="form-horizontal" name="frmDistribucion" id="frmDistribucion">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="idSolicitud">Nombre</label>
+                                    <div class="col-sm-6">
+                                        <input class="form-control" id="id2" name="id2" type="text" ng-model="form2.id"  disabled/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="idSolicitud">Nombre</label>
+                                    <div class="col-sm-6">
+                                        <input class="form-control" id="nombre2" name="nombre2" type="text" ng-model="form2.nombre"  placeholder="Nombre punto de distribucion"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="nombreSistema">Direccion</label>
+                                    <div class="col-sm-6">
+                                        <input class="form-control" id="direccion2" name="direccion2" type="text" ng-model="form2.direccion" placeholder="Direccion del punto de distribucion" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="nombreSistema"></label>
+                                    <div class="col-sm-6">
+                                        <button type="submit" class="btn btn-primary btn-lg" ng-click="actualizar()" data-dismiss="modal">Actualizar</button>
+                                    </div>
+                                </div>
+
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 </body>
 </html>

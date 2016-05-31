@@ -9,11 +9,15 @@ angular.module('TareaService',[])
                 return $http.get('/api/todos');
             },
             agregar:function(data){
-                joao1=data;
+
                 return $http.post('/api/todos',data);
             },
             eliminar:function(id){
                 return $http.delete('/api/todos/'+id);
+            },
+            editar:function(data){
+
+                return $http.post('/api/todosEdit',data);
             }
         }
     });
